@@ -1,7 +1,7 @@
 ###############################################################################
 # File:         utils.py
 # Author:       Pierre Lasbleis
-# Description:  Contains the function to read the dataset.
+# Description:  Contains the functions to read the dataset.
 ###############################################################################
 
 
@@ -165,14 +165,31 @@ def separateTrainingSet(data, output_sales, output_customers, pct_tr):
         [output_sales[i] for i in indices_te],      \
         [output_customers[i] for i in indices_te]
 
+"""
+Function compute_RMSPE()
+
+Arguments: 
+    * y: Numpy vector containing the true outputs
+    * y_hat: Numpy vector containing the estimated outputs
+
+Returns: 
+    * RMSPE computed on the non-zero true outputs. 
+"""
+def compute_RMSPE(y, y_hat):
+    ind = np.where(y!=0)[0]
+    
+    return np.sqrt( 
+        np.sum( ((y[ind] - y_hat[ind])/y[ind]) ** 2 ) / 
+        ind.shape[0]
+        )
         
 """ 
 Main function to test the other functions. 
 """
 if __name__ == "__main__":
-    print(loadStoreInfo("store.csv")[0])
+    print(loadStoreInfo("../data/store.csv")[0])
     
-    (input, output_sales, output_customers) = loadTrainingData("train.csv")
+    (input, output_sales, output_customers) = loadTrainingData("../data/train.csv")
     
     print(input[0])
     print("Sales: {} Customers: {}".format(
@@ -187,3 +204,7 @@ if __name__ == "__main__":
         
     print("{} entries in training set ; {} entries in test set".format(
         len(i_tr), len(i_te)))
+
+    print("If we predict zero sales everyday, RMSPE = {}".format(
+        compute_RMSPE(
+            np.array(o_s_te), np.zeros((np.array(o_s_te).shape[0])))))
