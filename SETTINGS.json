@@ -1,1 +1,1 @@
-{"TEST_DATA_PATH": "test.csv", "MODEL_PATH": "model.pickle", "TRAIN_DATA_PATH": "train.csv", "SUBMISSION_PATH": "submission.csv"}
+{"TEST_DATA_PATH": "data/test.csv", "MODEL_PATH": "data/model.pickle", "TRAIN_DATA_PATH": "data/train.csv", "SUBMISSION_PATH": "data/submission.csv","STORE_INFO_PATH": "data/store.csv"}
