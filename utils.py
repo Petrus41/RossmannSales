@@ -1,7 +1,7 @@
 ###############################################################################
 # File:         utils.py
 # Author:       Pierre Lasbleis
-# Description:  Contains the function to process the dataset.
+# Description:  Contains the function to read the dataset.
 ###############################################################################
 
 
