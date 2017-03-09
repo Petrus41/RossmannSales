@@ -155,7 +155,8 @@ Returns:
 """
 def loadTestData(url_csv):
     ################################
-    # Local parser : on line field "open" missing on entry 480
+    # Local parser : Required because the field "open" 
+    #  is missing on entry 480.
     ################################
     def localIntParser(txt_str):
         if len(txt_str) > 0:
