@@ -129,6 +129,75 @@ def loadTrainingData(url_csv):
                 ])
                 
         return data, output_sales, output_customers
+
+
+
+
+"""
+Function loadTestData()
+Produce a list of entries containing the test data. 
+
+Arguments: 
+* url_csv: a string containing the location of a csv file with one header line 
+and the folowing fields:
+    * Id: Integer
+    * Store: Integer
+    * DayOfWeek: Integer
+    * Date: date
+    * Open: Integer
+    * Promo: Integer
+    * StateHoliday: char
+    * SchoolHoliday: char
+    
+Returns: 
+    * data: a list. Each element is a list containing the fields as int 
+    or char or datetime
+"""
+def loadTestData(url_csv):
+    ################################
+    # Local parser : on line field "open" missing on entry 480
+    ################################
+    def localIntParser(txt_str):
+        if len(txt_str) > 0:
+            return int(txt_str)
+        else:
+            return 0
+    ############ end of local parser
+
+
+    # Load file
+    content = -1
+    with open(url_csv, 'r') as fid:
+        content = fid.read()
+        
+    if content == -1:   # empty file or reading problem    
+        return []
+    else:               # File read
+        data = list()
+    
+        lines = content.split('\n')[1:-1] # Skip header and last (empty) line
+        for l in lines:
+            fields = l.split(',')
+            
+            # Read fields
+            data.append([
+                int(fields[1]),             # Store id
+                int(fields[2]),             # Day of week
+                date(
+                    int(fields[3][:4]),     # Year 
+                    int(fields[3][5:7]),    # Month
+                    int(fields[3][8:10])),  # Day
+                localIntParser(fields[4]),  # Open
+                int(fields[5]),             # Promo
+                fields[6][1],               # StateHoliday
+                fields[7][1]                # SchoolHoliday
+                ])
+                
+        return data
+
+
+
+
         
 """ 
 Function separateTrainingSet()
